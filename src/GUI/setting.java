@@ -72,7 +72,7 @@ public class setting extends javax.swing.JFrame {
 
         jLabel1.setText("Choose the encryption/decryption algorithm: ");
 
-        NameAlgorithm.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "DES", "AES", "RSA" }));
+        NameAlgorithm.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DES", "AES", "RSA" }));
         NameAlgorithm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NameAlgorithmActionPerformed(evt);
@@ -119,7 +119,7 @@ public class setting extends javax.swing.JFrame {
 
         jLabel6.setText("Choose the hash function:");
 
-        HashChoose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "MD5", "SHA-1" }));
+        HashChoose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MD5", "SHA-1", "SHA-1", "SHA-256", "SHA-384", "SHA-512" }));
 
         jButton3.setBackground(new java.awt.Color(153, 255, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

@@ -68,7 +68,10 @@ public class JavaApplication2 {
                        chatMain.removeAllUser();
                        for(InfoClient info:listInfo){
                            System.out.println(listInfo.size());
-                           chatMain.addUser(info);
+                           if (!info.getName().equals(name)){
+                               System.out.print(info.getName()+" "+name);
+                                 chatMain.addUser(info);
+                           }
                       }
                        sizeListPre=listInfo.size();
                     }
