@@ -87,7 +87,7 @@ public class JavaApplication2 {
                                 if(vHashing.checkHash(chatMain.getAlgorithm().getAlgorithmInfo().getHashFunction(),pathfile , start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[2])){
                                     System.out.println("Hash value is the same");
                                 }else{
-                                     System.out.print("HASHED");
+                                     System.out.print("HASHING");
                                     System.out.println(vHashing.getValueHash("MD5",pathfile));
                                     System.out.println(start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[2]);
                                     System.out.print("HASHED");
