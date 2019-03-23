@@ -41,6 +41,9 @@ public class  FileTranferByTCP{
                 private File FileReceive;
                 private String vHash="";
                 private String IPFTP="";
+                private OutputStream os;
+                private BufferedInputStream bis;
+                private FileInputStream fis;
                 public void setIPFTP(String ip){
                     IPFTP=ip;
                 }
@@ -52,7 +55,6 @@ public class  FileTranferByTCP{
                 }
                 public void setMsgNameFile(){
                     MsgNameFile="";
-                    FileReceive=null;
                 }
                 public void setHASH(String hex){
                     vHash=hex;
@@ -61,6 +63,7 @@ public class  FileTranferByTCP{
 			receiveServer=new ServerSocket(21);
                         IPFTP=IP;
                         sendSocket=new Socket(IPFTP,21);
+                        System.out.println("SOket to send "+IPFTP);
                         Setted=true;
 		}
 		public void start()throws Exception {
@@ -75,6 +78,7 @@ public class  FileTranferByTCP{
 				while(true) {
 					din = new DataInputStream(receiveSocket.getInputStream());
                                         while(true){
+                                            System.out.println("new file ");
                                             if (MsgNameFile.equals("")){
                                                 break;
                                             }
@@ -117,9 +121,9 @@ public class  FileTranferByTCP{
 				if(sendSocket==null) {
 					//JOptionPane.showMessageDialog(null,"Loi Socket");
 				}
-			FileInputStream fis = new FileInputStream(selectfile);
+			fis = new FileInputStream(selectfile);
                        
-			BufferedInputStream bis = new BufferedInputStream(fis);
+			bis = new BufferedInputStream(fis);
 			don = new DataOutputStream(sendSocket.getOutputStream());
 			int size = 1;
 			int filesize = (int)selectfile.length();
@@ -132,7 +136,7 @@ public class  FileTranferByTCP{
                         System.out.print("send name file");
 			don.writeUTF(selectfile.getName()+"tokenvalue87b19b5ad4fbd7"+numarray+"tokenvalue87b19b5ad4fbd7"+vHash);
 			System.out.println("sent "+selectfile.getName());
-			OutputStream os = sendSocket.getOutputStream();
+			os = sendSocket.getOutputStream();
 			int current = 0;
                       
 			
@@ -150,6 +154,7 @@ public class  FileTranferByTCP{
 			}
 			fis.close();
 			bis.close();
+                        os.close();
 			System.out.println("Send 100%");
 			}catch(Exception e) {
 				System.out.println("Loi gui file, chi tiet:"+e);
