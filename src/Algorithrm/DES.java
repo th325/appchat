@@ -50,6 +50,7 @@ public class DES {
                 //keyGenerator();
                 BufferedReader TakeKey = null;
 		try { 
+                        System.out.println(file_name);
                         FileInputStream fis2 = new FileInputStream(file_name);
                         System.out.print(file_name.getName());
 			FileOutputStream fos2 = new FileOutputStream("DecryptedDES_"+file_name.getName().split("_")[1]); // Xuất file đã giải mã
