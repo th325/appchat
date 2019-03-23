@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javafx.application.Application;
@@ -63,7 +64,7 @@ public class  FileTranferByTCP{
                         if (Setted==false){ 
                             while(true){
                                 try{
-                                   sendSocket=new Socket("127.0.0.1",21);
+                                   sendSocket=new Socket(String.valueOf(InetAddress.getLocalHost().getHostAddress()),21);
                                    break;
                                 }catch(Exception e){
                                     System.out.println("reconecting...");

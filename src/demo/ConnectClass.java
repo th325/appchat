@@ -130,17 +130,6 @@ public class ConnectClass extends Application {
         return isMatched;
     }
     /*Return message Frame*/
-    public void ReceiveMsg(String Port,String Msg) throws InterruptedException{
-        System.out.println(Port+":"+Msg);
-        Thread.sleep(1000);
-        FrameChat fc =choose.findFrame(Integer.parseInt(Port));
-        if (fc!=null)fc.UpdateOnFrame(Port,Msg);
-        /*
-        
-        */
-        //System.out.print(fchat.getName());
-        /*update Msg on class FrameChat.java*/
-    }
     public void SetBindForObj(InfoClient info,chooseGuestClass choosec,StartFrame st) throws SocketException, IOException, Exception{
         /*initia*/
             choose=choosec;

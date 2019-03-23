@@ -10,7 +10,11 @@ import demo.chooseGuestClass;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -173,7 +177,11 @@ public class StartFrame extends javax.swing.JFrame{
         String[] args = new String[3];
         args[0]=userName.getText();
         args[1]=PortText.getText();
-        args[2]="127.0.0.1";
+        try {
+            args[2]=String.valueOf(InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         choose = new chooseGuestClass();
         try {

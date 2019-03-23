@@ -33,21 +33,4 @@ public class chooseGuestClass {
         System.out.println(info.getPort());
         cnn.SetBindForObj(info,choose,start);
     }
-    public void createFrame(String Port){
-        value[3]=Port;
-        /*Tao frame chat*/
-       fchat= new FrameChat(value,cnn);
-       fchat.setVisible(true);
-       InfoClient Info = new InfoClient("127.0.0.1",Integer.parseInt(value[3]),value[3],fchat);
-       ListInfo.add(Info);
-       countClient++;
-    }
-    public FrameChat findFrame(int port){
-        int i=0;
-        for (i = 0;i<countClient;i++){
-            if (ListInfo.get(i).getPort()==port) {  
-                return ListInfo.get(i).getFchat();}
-        }
-        return null;
-    }
 }

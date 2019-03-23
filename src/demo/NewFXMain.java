@@ -5,6 +5,8 @@
  */
 package demo;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,45 +20,10 @@ import javafx.stage.Stage;
  *
  * @author Huynh
  */
-public class NewFXMain extends Application {
+public class NewFXMain{
     
-    @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-     String regularExpression =  "([a-zA-Z]:)?(\\\\[a-zA-Z0-9 ._-]+)+\\\\?";
-
-    String path = "C:\\Users\\Huynh\\Desktop\\lab 3.txt";
-
-    Pattern pattern = Pattern.compile(regularExpression);
-
-    boolean isMatched = Pattern.matches(regularExpression,path);
-    System.out.println(path);
-    System.out.println(pattern.pattern());
-    System.out.println(isMatched);
-
+    public static void main(String[] args) throws UnknownHostException {
+        System.out.println(InetAddress.getLocalHost().getHostAddress());
     }
     
 }
