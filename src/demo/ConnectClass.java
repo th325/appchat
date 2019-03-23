@@ -55,7 +55,7 @@ public class ConnectClass extends Application {
     private chooseGuestClass choose=null;
     private LinkedList<InfoClient> listInfo;
     private DatagramSocket socketudp;
-    
+    private boolean isSetTCPForFile=false;
     /**
      *
      */
@@ -141,9 +141,7 @@ public class ConnectClass extends Application {
             udp_progress.bind(socketudp,this);
             udp_progress.start();
             start=st;
-            tcp_progress=new ProgressForFile();
-            tcp_progress.bind();
-            tcp_progress.start();
+            
         /*Connect to Server*/
             System.out.print("PLE");
             TaskOfServer task = new TaskOfServer();
@@ -194,6 +192,14 @@ public class ConnectClass extends Application {
     /*Take agrument*/
         String IPD=str[0];
         int PortD=Integer.parseInt(str[1]);
+        /*SETUP PORT FTP TO SEND FILE*/
+        if(!isSetTCPForFile){
+        tcp_progress=new ProgressForFile();
+        tcp_progress.bind(IPD);
+        tcp_progress.start();
+        isSetTCPForFile=true;
+        }
+        
         //int PortS=Integer.parseInt(str[2]);
         String msg=str[2];
     /*Send Progress*/

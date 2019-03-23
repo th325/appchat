@@ -40,6 +40,7 @@ public class  FileTranferByTCP{
                 boolean Setted=false;
                 private File FileReceive;
                 private String vHash="";
+                private String IPFTP="";
                 public File getFileReceive(){
                     return FileReceive;
                 }
@@ -53,26 +54,11 @@ public class  FileTranferByTCP{
                 public void setHASH(String hex){
                     vHash=hex;
                 }
-		public void bind() throws IOException {
-                    
-                        try{
+		public void bind(String IP) throws IOException {
 			receiveServer=new ServerSocket(21);
+                        IPFTP=IP;
+                        sendSocket=new Socket(IPFTP,21);
                         Setted=true;
-                        }catch(IOException e){
-                            System.out.print("ignore Port");
-                        }
-                        if (Setted==false){ 
-                            while(true){
-                                try{
-                                   sendSocket=new Socket(String.valueOf(InetAddress.getLocalHost().getHostAddress()),21);
-                                   break;
-                                }catch(Exception e){
-                                    System.out.println("reconecting...");
-                                }
-                            }
-                        }
-                       
-                        
 		}
 		public void start()throws Exception {
 			
@@ -82,17 +68,11 @@ public class  FileTranferByTCP{
 		
 		public void run(){
 			try {
-                                if(Setted){
-                                    receiveSocket=receiveServer.accept();
-                                }else{
-                                    receiveSocket=sendSocket;
-                                }
+                                receiveSocket=receiveServer.accept();
 				while(true) {
 					din = new DataInputStream(receiveSocket.getInputStream());
                                         while(true){
-                                            
                                             if (MsgNameFile.equals("")){
-                                                
                                                 break;
                                             }
                                         }
@@ -137,7 +117,7 @@ public class  FileTranferByTCP{
 			FileInputStream fis = new FileInputStream(selectfile);
                        
 			BufferedInputStream bis = new BufferedInputStream(fis);
-			don = new DataOutputStream(receiveSocket.getOutputStream());
+			don = new DataOutputStream(sendSocket.getOutputStream());
 			int size = 1;
 			int filesize = (int)selectfile.length();
                         System.out.print(selectfile.length());
@@ -148,7 +128,7 @@ public class  FileTranferByTCP{
                           /*Hashing */
 			don.writeUTF(selectfile.getName()+"tokenvalue87b19b5ad4fbd7"+numarray+"tokenvalue87b19b5ad4fbd7"+vHash);
 			System.out.println("sent "+selectfile.getName());
-			OutputStream os = receiveSocket.getOutputStream();
+			OutputStream os = sendSocket.getOutputStream();
 			int current = 0;
                       
 			
