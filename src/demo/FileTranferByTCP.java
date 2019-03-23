@@ -82,7 +82,7 @@ public class  FileTranferByTCP{
                                             String mfile = din.readUTF();
                                             MsgNameFile=mfile;
                                             System.out.println(mfile);
-                                            File f = new File("E:\\"+mfile.split("tokenvalue87b19b5ad4fbd7")[0]);
+                                            File f = new File(mfile.split("tokenvalue87b19b5ad4fbd7")[0]);
                                             FileOutputStream fos = new FileOutputStream(f);
                                             BufferedOutputStream bos = new BufferedOutputStream(fos);
                                             InputStream is = receiveSocket.getInputStream();
@@ -129,6 +129,7 @@ public class  FileTranferByTCP{
                             numarray++;
                         }
                           /*Hashing */
+                        System.out.print("send name file");
 			don.writeUTF(selectfile.getName()+"tokenvalue87b19b5ad4fbd7"+numarray+"tokenvalue87b19b5ad4fbd7"+vHash);
 			System.out.println("sent "+selectfile.getName());
 			OutputStream os = sendSocket.getOutputStream();

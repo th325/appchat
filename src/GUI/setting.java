@@ -292,6 +292,7 @@ public class setting extends javax.swing.JFrame {
             // TODO add your handling code here:
             AlgorithmInfo = null;
             AlgorithmInfo = new SetupAlgorithm(NameAlgorithm.getSelectedItem().toString(),publicfile,privatefile,HashChoose.getSelectedItem().toString());
+            
         } catch (IOException ex) {
             Logger.getLogger(setting.class.getName()).log(Level.SEVERE, null, ex);
         }

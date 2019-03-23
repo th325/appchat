@@ -82,8 +82,7 @@ public class JavaApplication2 {
                     }
                     try{
                         if (!start.getChoose().cnn.progressFile().getMsgNameFile().equals("")){
-                            chatMain.addUserMsg(false,start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[0], true);
-                            
+                            chatMain.addUserMsg(false,start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[0], true); 
                             if(chatMain.getAlgorithm()!=null){
                                 System.out.print("Decrypt"+start.getChoose().cnn.progressFile().getMsgNameFile());
                                 String pathfile = chatMain.getAlgorithm().getAlgorithmInfo().vprogressAlgorithm.DecryptAlgorithmForFile(start.getChoose().cnn.progressFile().getFileReceive());
