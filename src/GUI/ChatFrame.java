@@ -697,9 +697,9 @@ public class ChatFrame extends javax.swing.JFrame {
             try {
                 addUserMsg(true, fc.getSelectedFile().getName(), true);
                 /*Encrypt*/
-                file_ecrypt=fc.getSelectedFile();
-                 start.getChoose().cnn.progressFile().setHASH(vHashing.getValueHash(AlgorithmInfo.getAlgorithmInfo().getHashFunction(), file_ecrypt.getPath()));
+                file_ecrypt=fc.getSelectedFile();        
                 if (AlgorithmInfo!=null){
+                    start.getChoose().cnn.progressFile().setHASH(vHashing.getValueHash(AlgorithmInfo.getAlgorithmInfo().getHashFunction(), file_ecrypt.getPath()));
                     file_ecrypt=AlgorithmInfo.getAlgorithmInfo().vprogressAlgorithm.EncryptAlgorithmForFile(fc.getSelectedFile());
                 }
                 /*end*/
