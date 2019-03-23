@@ -46,8 +46,9 @@ import javax.swing.text.StyledDocument;
  * @author phamc
  */
 public class ChatFrame extends javax.swing.JFrame {
-    private  StartFrame start;
+    StartFrame start;
     private  setting methodEncrypt;
+    
     
     public void setStartFrame(StartFrame st){
         start=st;
@@ -697,9 +698,9 @@ public class ChatFrame extends javax.swing.JFrame {
             try {
                 addUserMsg(true, fc.getSelectedFile().getName(), true);
                 /*Encrypt*/
-                file_ecrypt=fc.getSelectedFile();        
+                file_ecrypt=fc.getSelectedFile();
+                 start.getChoose().cnn.progressFile().setHASH(vHashing.getValueHash(AlgorithmInfo.getAlgorithmInfo().getHashFunction(), file_ecrypt.getPath()));
                 if (AlgorithmInfo!=null){
-                    start.getChoose().cnn.progressFile().setHASH(vHashing.getValueHash(AlgorithmInfo.getAlgorithmInfo().getHashFunction(), file_ecrypt.getPath()));
                     file_ecrypt=AlgorithmInfo.getAlgorithmInfo().vprogressAlgorithm.EncryptAlgorithmForFile(fc.getSelectedFile());
                 }
                 /*end*/
@@ -1004,7 +1005,7 @@ public class ChatFrame extends javax.swing.JFrame {
 class MyMouseListener implements MouseListener {
     ArrayList<javax.swing.JPanel> listUser;
     int indexUserChoosed;
-    ChatFrame frame;
+    private ChatFrame frame;
     javax.swing.JPanel content;
     public MyMouseListener(ChatFrame frame ,ArrayList<javax.swing.JPanel> listUser, int indexUserChoosed, javax.swing.JPanel content) {
         this.listUser = listUser;
@@ -1033,6 +1034,11 @@ class MyMouseListener implements MouseListener {
             frame.setIndexUser(indexUserChoosed);
             frame.setEditContentMsg(true);
             frame.setNameUserChatWithMe(frame.listUserInfo.get(indexUserChoosed).getName());
+            try {
+                frame.start.getChoose().cnn.setTCPforTranferFile(frame.listUserInfo.get(indexUserChoosed).getIP());
+            } catch (Exception ex) {
+                Logger.getLogger(MyMouseListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.print(frame.listUserInfo.get(indexUserChoosed).getName());
         }
         

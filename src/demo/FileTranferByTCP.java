@@ -41,6 +41,9 @@ public class  FileTranferByTCP{
                 private File FileReceive;
                 private String vHash="";
                 private String IPFTP="";
+                public void setIPFTP(String ip){
+                    IPFTP=ip;
+                }
                 public File getFileReceive(){
                     return FileReceive;
                 }

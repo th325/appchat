@@ -186,19 +186,21 @@ public class ConnectClass extends Application {
         
         
     }
- 
-    public void Backend(String[] str) throws SocketException, Exception{
-        try{ 
-    /*Take agrument*/
-        String IPD=str[0];
-        int PortD=Integer.parseInt(str[1]);
-        /*SETUP PORT FTP TO SEND FILE*/
+    public void setTCPforTranferFile(String IPD) throws IOException, Exception{
         if(!isSetTCPForFile){
         tcp_progress=new ProgressForFile();
         tcp_progress.bind(IPD);
         tcp_progress.start();
         isSetTCPForFile=true;
         }
+    }
+    public void Backend(String[] str) throws SocketException, Exception{
+        try{ 
+    /*Take agrument*/
+        String IPD=str[0];
+        int PortD=Integer.parseInt(str[1]);
+        /*SETUP PORT FTP TO SEND FILE*/
+        
         
         //int PortS=Integer.parseInt(str[2]);
         String msg=str[2];
