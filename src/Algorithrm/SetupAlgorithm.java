@@ -43,11 +43,12 @@ public class SetupAlgorithm {
     public SetupAlgorithm(String nameAlgorithm,File publickey,File privatekey,String hashfunction) throws IOException{
         ToolFile vToolFile = new ToolFile();
         vToolFile.copyFile(publickey.getPath(), publickey.getName());
-        vToolFile.copyFile(privatekey.getPath(), privatekey.getName());
+       
         File publicnew = new File(publickey.getName());
         File privatenew = null;
          if (nameAlgorithm.equals("RSA")){ 
              privatenew = new File(privatekey.getName());
+             vToolFile.copyFile(privatekey.getPath(), privatekey.getName());
              this.Privatekey=privatenew;
          }     
         vprogressAlgorithm = new ProgressAlgorithm(nameAlgorithm,publicnew,privatenew,hashfunction);

@@ -79,7 +79,7 @@ public class ConnectClass extends Application {
         ObjectOutputStream objOut=null;
         ObjectInputStream objIn=null;
         public void bind() throws IOException{
-            sockets = new Socket("192.168.228.50",7777);
+            sockets = new Socket("192.168.228.1",7777);
         }
         public void start(){
             Thread thread = new Thread(this);
@@ -198,6 +198,7 @@ public class ConnectClass extends Application {
         String msg=str[2];
     /*Send Progress*/
         //Take address/s receiver
+        System.out.print(IPD+" "+PortD);
         InetSocketAddress address= new InetSocketAddress(IPD,PortD);
         //conduct send
         System.out.println(comparepathFile(msg));
