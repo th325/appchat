@@ -52,7 +52,7 @@ public class DES {
 		try { 
                         FileInputStream fis2 = new FileInputStream(file_name);
                         System.out.print(file_name.getName());
-			FileOutputStream fos2 = new FileOutputStream("DecryptDES_"+file_name.getName().split("_")[1]); // Xuất file đã giải mã
+			FileOutputStream fos2 = new FileOutputStream("DecryptedDES_"+file_name.getName().split("_")[1]); // Xuất file đã giải mã
                         ////////
                         // Key2 dùng cho việc giải mã
                             TakeKey = new BufferedReader(new FileReader(PublicKey)); // Get key từ tệp txt
