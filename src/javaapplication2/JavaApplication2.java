@@ -10,14 +10,17 @@ import GUI.*;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.TimeUnit;
 import demo.*;
+import java.io.File;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.BadLocationException;
 /**
  *
  * @author phamc
  */
 public class JavaApplication2 {
-
+    static int size=1;
     static ChatFrame chatMain;
     static StartFrame start;
     static test testApp;
@@ -82,24 +85,30 @@ public class JavaApplication2 {
                     }
                     try{
                         if (!start.getChoose().cnn.progressFile().getMsgNameFile().equals("")){
-                            chatMain.addUserMsg(false,start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[0], true); 
+                            chatMain.addUserMsg(false,start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[0], true);
+                            String FileName=start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[0];
+                            String HashValue=start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[2];
+                            String FileSize=start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[1];
                             start.getChoose().cnn.progressFile().setMsgNameFile();
                             if(chatMain.getAlgorithm()!=null){
-                                System.out.print("Decrypt"+start.getChoose().cnn.progressFile().getMsgNameFile());
-                                String pathfile = chatMain.getAlgorithm().getAlgorithmInfo().vprogressAlgorithm.DecryptAlgorithmForFile(start.getChoose().cnn.progressFile().getFileReceive());
-                                if(vHashing.checkHash(chatMain.getAlgorithm().getAlgorithmInfo().getHashFunction(),pathfile , start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[2])){
+                                while(Integer.parseInt(FileSize)!=(int)new File("receive\\"+FileName).length()/size){
+                                    /*loop*/
+                                }
+                                System.out.print("Decrypt..."+FileName);
+                                String pathfile = chatMain.getAlgorithm().getAlgorithmInfo().vprogressAlgorithm.DecryptAlgorithmForFile(new File("receive\\"+FileName));
+                                if(vHashing.checkHash(chatMain.getAlgorithm().getAlgorithmInfo().getHashFunction(),pathfile , HashValue)){
                                     System.out.println("Hash value is the same");
                                 }else{
-                                     System.out.print("HASHING");
+                                    System.out.print("HASHING");
                                     System.out.println(vHashing.getValueHash("MD5",pathfile));
-                                    System.out.println(start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[2]);
+                                    System.out.println(HashValue);
                                     System.out.print("HASHED");
                                 }
                             }
-                            start.getChoose().cnn.progressFile().setMsgNameFile();
+                            
                         }
                     }catch(Exception e){
-                        System.out.print("...81/line/ignore");
+                        Logger.getLogger(JavaApplication2.class.getName()).log(Level.SEVERE, null, e);
                     }
                     Thread.sleep(3000);
                 }

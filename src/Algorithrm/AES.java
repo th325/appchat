@@ -27,11 +27,11 @@ public class AES {
                         fisKey.close();
                         
 			FileInputStream fis = new FileInputStream(file_name.getPath()); // File cần đưa vào 
-			FileOutputStream fos = new FileOutputStream("EncryptedAES_" + file_name.getName()); 
+			FileOutputStream fos = new FileOutputStream("receive//EncryptedAES_" + file_name.getName()); 
                         encryptwithAES(encodedSecretKey1, fis, fos);
-            return new File("EncryptedAES_" + file_name.getName());
+            return new File("receive//EncryptedAES_" + file_name.getName());
         }
-        public void Decrypt(File file_name,File key_name) throws FileNotFoundException, IOException, Throwable{
+        public String Decrypt(File file_name,File key_name) throws FileNotFoundException, IOException, Throwable{
                         File fileSecretKey = key_name;
                         FileInputStream fisKey = new FileInputStream(key_name.getPath());
                         byte[] encodedSecretKey2 = new byte[(int) fileSecretKey.length()];
@@ -42,8 +42,9 @@ public class AES {
 //                        String pvKey = PrivateKey.readLine();  
                         ////////////
 			FileInputStream fis2 = new FileInputStream(file_name.getPath()); 
-			FileOutputStream fos2 = new FileOutputStream("DecryptAES_"+file_name.getName());
+			FileOutputStream fos2 = new FileOutputStream("receive//DecryptedAES_"+file_name.getName().split("_")[1]);
 			decryptwithAES(encodedSecretKey2, fis2, fos2);  // Xuất file đã giải mã
+                        return "receive//DecryptedAES_"+file_name.getName().split("_")[1];
         }
         public static void main() throws NoSuchAlgorithmException{
             // Sinh cặp khóa

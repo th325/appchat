@@ -79,7 +79,7 @@ public class ConnectClass extends Application {
         ObjectOutputStream objOut=null;
         ObjectInputStream objIn=null;
         public void bind() throws IOException{
-            sockets = new Socket("192.168.228.50",7777);
+            sockets = new Socket("127.0.0.1",7777);
         }
         public void start(){
             Thread thread = new Thread(this);

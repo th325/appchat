@@ -23,7 +23,7 @@ public class DES {
                 BufferedReader PublicKey = null;
                 BufferedReader EncrypKey = null;
 		try {
-                        File File_encrypt = new File("EncryptedDES_" + file_name.getName());
+                        File File_encrypt = new File("sendencrypt\\EncryptedDES_" + file_name.getName());
                         FileOutputStream fos = new FileOutputStream(File_encrypt.getPath());    
                         FileInputStream fis = new FileInputStream(file_name.getPath());
                         EncrypKey = new BufferedReader(new FileReader(EncryptKey.getPath()));
@@ -31,7 +31,7 @@ public class DES {
                         encryptwithDES(key1, fis, fos);// Xuất file đã mã hóa  
                         ////////
                         // Key1 dùng cho việc mã hóa
-                        return new File("EncryptedDES_" + file_name.getName());
+                        return new File("sendencrypt\\EncryptedDES_" + file_name.getName());
 		} catch (Throwable e) {
                         e.printStackTrace();
 
@@ -50,16 +50,17 @@ public class DES {
                 //keyGenerator();
                 BufferedReader TakeKey = null;
 		try { 
-                        System.out.println(file_name);
+                        System.out.println("Ma hoa bat dau"+file_name);
                         FileInputStream fis2 = new FileInputStream(file_name);
                         System.out.print(file_name.getName());
-			FileOutputStream fos2 = new FileOutputStream("DecryptedDES_"+file_name.getName().split("_")[1]); // Xuất file đã giải mã
+			FileOutputStream fos2 = new FileOutputStream("receive\\DecryptedDES_"+file_name.getName().split("_")[1]); // Xuất file đã giải mã
                         ////////
                         // Key2 dùng cho việc giải mã
                             TakeKey = new BufferedReader(new FileReader(PublicKey)); // Get key từ tệp txt
                             String key2 = TakeKey.readLine(); 
                             decryptwithDES(key2, fis2, fos2);
-                        return "DecryptDES_"+file_name.getName().split("_")[1];    
+                          System.out.println("Ma hoa ket thuc"+file_name);
+                        return "receive\\DecryptedDES_"+file_name.getName().split("_")[1];    
 		} catch (Throwable e) {
                         e.printStackTrace();
 

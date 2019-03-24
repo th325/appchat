@@ -38,19 +38,20 @@ public class RSA {
         public File Encrypt(File file_name,File Encryptkey) throws FileNotFoundException, Throwable{
            
             FileInputStream fis = new FileInputStream(file_name.getPath());
-            FileOutputStream fos = new FileOutputStream("EncryptedRSA_" + file_name.getName());
+            FileOutputStream fos = new FileOutputStream("receive//EncryptedRSA_" + file_name.getName());
             System.out.println(Encryptkey.getPath());
              System.out.println("ADRESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
             encryptwithRSA(Encryptkey.getName(), fis, fos);// Xuất file đã mã hóa
             return new File("EncryptedRSA_" + file_name.getName());
         }
-        public void Decrypt(File file_name,File privatekey) throws FileNotFoundException, Throwable{
+        public String Decrypt(File file_name,File privatekey) throws FileNotFoundException, Throwable{
              System.out.println("asdasdasdasssssssssssssssssssssssssssssssssss");
             System.out.println(privatekey.getPath());
              System.out.println("ADRESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
             FileInputStream fis2 = new FileInputStream(file_name.getPath()); 
-            FileOutputStream fos2 = new FileOutputStream("DecryptRSA_"+file_name.getName().split("_")[1]);
+            FileOutputStream fos2 = new FileOutputStream("receive//DecryptedRSA_"+file_name.getName().split("_")[1]);
             decryptwithRSA(privatekey.getName(), fis2, fos2);  // Xuất file đã giải mã
+            return "receive//DecryptedRSA_"+file_name.getName().split("_")[1];
         }
         public static void main() throws NoSuchAlgorithmException, InvalidKeySpecException{
             // Sinh cặp khóa
