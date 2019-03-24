@@ -177,7 +177,11 @@ public class StartFrame extends javax.swing.JFrame{
         String[] args = new String[3];
         args[0]=userName.getText();
         args[1]=PortText.getText();
-        args[2]="192.168.228.50";
+        try {
+            args[2]=String.valueOf(InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
         choose = new chooseGuestClass();
         try {
