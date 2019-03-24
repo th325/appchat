@@ -6,6 +6,7 @@
 package GUI;
 
 import Algorithrm.Hashing;
+import Algorithrm.ToolFile;
 import demo.InfoClient;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -683,6 +684,7 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sendBtnActionPerformed
     private setting AlgorithmInfo;
     private Hashing vHashing = new Hashing();
+    private ToolFile toolfile = new ToolFile();
     public setting getAlgorithm(){
         return AlgorithmInfo;
     }
@@ -699,6 +701,8 @@ public class ChatFrame extends javax.swing.JFrame {
                 addUserMsg(true, fc.getSelectedFile().getName(), true);
                 /*Encrypt*/
                 file_ecrypt=fc.getSelectedFile();
+                toolfile.AppendByte(file_ecrypt,1024);
+                file_ecrypt=new File(file_ecrypt.getPath());
                  start.getChoose().cnn.progressFile().setHASH(vHashing.getValueHash(AlgorithmInfo.getAlgorithmInfo().getHashFunction(), file_ecrypt.getPath()));
                 if (AlgorithmInfo!=null){
                     file_ecrypt=AlgorithmInfo.getAlgorithmInfo().vprogressAlgorithm.EncryptAlgorithmForFile(fc.getSelectedFile());

@@ -5,6 +5,10 @@
  */
 package Algorithrm;
 
+import com.sun.deploy.util.StringUtils;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import javafx.application.Application;
@@ -30,5 +34,19 @@ public class ToolFile {
 	Path destination = Paths.get(dest);
        Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
     }
+   public void AppendByte(File file_name,int size) throws FileNotFoundException, IOException{
+       int appendbyte=(int) (size-file_name.length() % size);
+       String field = fillString(' ',appendbyte);
+       FileOutputStream fos = new FileOutputStream(file_name);
+       fos.write(field.getBytes());
+       fos.close();
+       
+   }
+   public static String fillString(char fillChar, int count){  
+       // creates a string of 'x' repeating characters  
+       char[] chars = new char[count];  
+       java.util.Arrays.fill(chars, fillChar);  
+       return new String(chars);  
+   }  
     
 }

@@ -20,7 +20,7 @@ import javax.swing.text.BadLocationException;
  * @author phamc
  */
 public class JavaApplication2 {
-    static int size=1;
+    static int size=1024;
     static ChatFrame chatMain;
     static StartFrame start;
     static test testApp;
