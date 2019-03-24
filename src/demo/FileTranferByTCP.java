@@ -19,8 +19,6 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -43,7 +41,8 @@ public class  FileTranferByTCP{
                 private File FileReceive;
                 private String vHash="";
                 private String IPFTP="";
- 
+                private int size=1;
+                 
                 public void setIPFTP(String ip){
                     IPFTP=ip;
                 }
@@ -60,22 +59,11 @@ public class  FileTranferByTCP{
                     vHash=hex;
                 }
 		public void bind(String IP) throws IOException {
-			try{
 			receiveServer=new ServerSocket(8787);
+                        IPFTP=IP;
+                        sendSocket=new Socket(IPFTP,8787);
+                        System.out.println("SOket to send "+IPFTP);
                         Setted=true;
-                        }catch(IOException e){
-                            System.out.print("ignore Port");
-                        }
-                        if (Setted==false){ 
-                            while(true){
-                                try{
-                                   sendSocket=new Socket("127.0.0.1",8787);
-                                   break;
-                                }catch(Exception e){
-                                    System.out.println("reconecting...");
-                                }
-                            }
-                        }
 		}
 		public void start()throws Exception {
 			
@@ -85,11 +73,7 @@ public class  FileTranferByTCP{
 		
 		public void run(){
 			try {
-                                if(Setted){
-                                    receiveSocket=receiveServer.accept();
-                                }else{
-                                    receiveSocket=sendSocket;
-                                }
+                                receiveSocket=receiveServer.accept();
 				while(true) {
 					din = new DataInputStream(receiveSocket.getInputStream());
                                         while(true){
@@ -105,12 +89,12 @@ public class  FileTranferByTCP{
                                             FileOutputStream fos = new FileOutputStream(f);
                                             BufferedOutputStream bos = new BufferedOutputStream(fos);
                                             InputStream is = receiveSocket.getInputStream();
-                                            int size=1;
+                                            
                                             byte[] buffer = new byte[size];
                                             int byteread=0;
                                             int numarray=Integer.parseInt(mfile.split("tokenvalue87b19b5ad4fbd7")[1]);
                                             for(int i=0;i<numarray;i++) {
-                                                    System.out.println(mfile+" "+byteread+" "+size*i);
+                                                    System.out.println(mfile+" "+byteread+" "+i*size);
                                                     bos.write(buffer,0,is.read(buffer,0,size));
 
                                             }
@@ -134,14 +118,14 @@ public class  FileTranferByTCP{
 	}
 		public void sentfile(File selectfile){
 			try {
-			
+				if(sendSocket==null) {
+					//JOptionPane.showMessageDialog(null,"Loi Socket");
+				}
 			FileInputStream fis = new FileInputStream(selectfile);
-                       if (sendSocket==null){
-                           System.out.println("sendSocket NULLLLLLL");
-                       }
+                       
 			BufferedInputStream bis = new BufferedInputStream(fis);
 			don = new DataOutputStream(sendSocket.getOutputStream());
-			int size = 1;
+			
 			int filesize = (int)selectfile.length();
                         System.out.print(selectfile.length());
 			int numarray=(filesize/size);
@@ -171,7 +155,7 @@ public class  FileTranferByTCP{
                         
 			System.out.println("Send 100%");
 			}catch(Exception e) {
-				Logger.getLogger(FileTranferByTCP.class.getName()).log(Level.SEVERE, null, e);
+				System.out.println("Loi gui file, chi tiet:"+e);
 			}
             }
 	};
