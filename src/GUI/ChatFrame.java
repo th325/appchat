@@ -26,6 +26,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ import javax.swing.text.StyledDocument;
  */
 public class ChatFrame extends javax.swing.JFrame {
     StartFrame start;
+    public InfoClient infomall;
+    public String Name;
     private  setting methodEncrypt;
     
     
@@ -838,7 +841,7 @@ public class ChatFrame extends javax.swing.JFrame {
         /*addUser("a");
         addUser("b");*/
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        final CloseAction closeAction = new CloseAction(this,start);
+        final CloseAction closeAction = new CloseAction(this, this);
         this.addWindowListener(new WindowAdapter() {
            @Override
            public void windowClosing(WindowEvent e) {
@@ -1022,6 +1025,11 @@ public class ChatFrame extends javax.swing.JFrame {
 
     public void setNameUserChatWithMe(String name) {
         userChatWithMe.setText(name);
+        userChatWithMe.revalidate();
+        userChatWithMe.repaint();
+    }
+    public String getNameUserChatWithMe() {
+        return userChatWithMe.getText();
     }
 }
 
@@ -1086,10 +1094,15 @@ class MyMouseListener implements MouseListener {
 class CloseAction extends AbstractAction {
     private final JFrame mainFrame;
     private StartFrame start;
-    public CloseAction(JFrame mainFrame,StartFrame start) {
+    private ChatFrame chat;
+    public InfoClient infomall;
+    public String Name;
+    public CloseAction(JFrame mainFrame, ChatFrame chatFrame) {
        super("Exit");
        putValue(MNEMONIC_KEY, KeyEvent.VK_X);
        this.mainFrame = mainFrame;
+       this.infomall=infomall;
+       this.chat= chatFrame;
     }
 
     @Override
@@ -1107,8 +1120,11 @@ class CloseAction extends AbstractAction {
             JOptionPane.YES_NO_OPTION);
         if (confirmed == JOptionPane.YES_OPTION) {
             // clean up code
-            String s=start.getChoose().cnn.IPSelf;
-            Socket socket = new Socket("127.0.0.1",7777);
+            System.out.print(chat.getNameUserChatWithMe());
+            infomall=new InfoClient(null,0,chat.getNameUserChatWithMe());
+            Socket sockets = new Socket("192.168.228.50",7777);
+            ObjectOutputStream objOut = new ObjectOutputStream(sockets.getOutputStream());
+            objOut.writeObject(infomall);
             System.exit(0);
         }
    }

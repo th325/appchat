@@ -49,19 +49,22 @@ public class Server {
                 try {
                     socket=serversocket.accept();
                     System.out.print(socket);
-                    int index=index=checkExis(socket.getLocalAddress().getHostAddress());
+                    objIn = new ObjectInputStream(socket.getInputStream());
+                    Iclient =(InfoClient) objIn.readObject();
+                    int index=checkExis(Iclient);
                     if(index!=-1){
                         listSocket.remove(index);
                          listObject.remove(index);
                     }else{
-                        objIn = new ObjectInputStream(socket.getInputStream());
-                        Iclient =(InfoClient) objIn.readObject();
-                        listSocket.add(socket);
-                        listObject.add(Iclient);
+                    listSocket.add(socket);
+                    listObject.add(Iclient);
                     }
                     FServer.UpdateFrame(listObject);
                     Thread.sleep(1000);
                     updateToAll();
+                   
+                    
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -80,18 +83,22 @@ public class Server {
         }
         
     }
-    public int checkExis(String IP){
+    public int checkExis(InfoClient info){
         int i=0;
-        for(Socket sk:listSocket){
-            if(sk.getLocalAddress().getHostAddress().equals(IP))return i;
+        for(InfoClient sk:listObject){
+            if(sk.getName().equals(info.getName()))return i;
             i++;
         }
         return -1;
     }
     public void updateToAll() throws IOException{
         for(Socket sk:listSocket){
+            try{
             objOut = new ObjectOutputStream(sk.getOutputStream());
             objOut.writeObject(listObject);
+            }catch(IOException e){
+                
+            }
         }
     }
     

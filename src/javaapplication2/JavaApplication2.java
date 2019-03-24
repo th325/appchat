@@ -58,7 +58,9 @@ public class JavaApplication2 {
         chatMain = new ChatFrame();
         chatMain.setVisible(true);
         chatMain.setStartFrame(start);
-        chatMain.setNameUserChatWithMe("Hello "+name);
+        chatMain.setNameUserChatWithMe(name);
+        chatMain.Name=name;
+        Thread.sleep(100);
         int sizeListPre=0;
         while(true){
              if (start.getChoose().cnn!=null){
@@ -108,7 +110,7 @@ public class JavaApplication2 {
                     }catch(Exception e){
                         Logger.getLogger(JavaApplication2.class.getName()).log(Level.SEVERE, null, e);
                     }
-                    Thread.sleep(2000);//1
+                    Thread.sleep(3000);//1
                 }
              }
         }

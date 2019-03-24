@@ -23,11 +23,10 @@ public class InfoClient implements Serializable{
      * @param Port
      * @param Name
      */
-    public InfoClient(String IP,int Port, String Name,FrameChat Fchat){
+    public InfoClient(String IP,int Port, String Name){
       this.Port=Port;
       this.IP=IP;
       this.Name=Name;
-      this.Fchat=Fchat;
       
     }
     public int getPort(){

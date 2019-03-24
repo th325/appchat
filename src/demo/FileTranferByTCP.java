@@ -66,7 +66,7 @@ public class  FileTranferByTCP{
                         sendSocket=new Socket(IPFTP,8787);
                         System.out.println("SOket to send "+IPFTP);
                         Setted=true;
-                    /* try{
+                     /*try{
 			receiveServer=new ServerSocket(8787);
                         Setted=true;
                         }catch(IOException e){
@@ -91,7 +91,7 @@ public class  FileTranferByTCP{
 		
 		public void run(){
 			try {
-                                /*if(Setted){
+                               /* if(Setted){
                                     receiveSocket=receiveServer.accept();
                                 }else{
                                     receiveSocket=sendSocket;

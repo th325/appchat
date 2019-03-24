@@ -29,7 +29,7 @@ public class chooseGuestClass {
         value[0]=args[0];
         value[1]=args[1];
         value[2]=args[2];
-        info = new InfoClient(value[2],Integer.parseInt(value[1]),value[0],null);
+        info = new InfoClient(value[2],Integer.parseInt(value[1]),value[0]);
         System.out.println(info.getPort());
         cnn.SetBindForObj(info,choose,start);
     }

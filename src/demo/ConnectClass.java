@@ -55,6 +55,10 @@ public class ConnectClass extends Application {
     private LinkedList<InfoClient> listInfo;
     private DatagramSocket socketudp;
     private boolean isSetTCPForFile=false;
+    private InfoClient infoMall;
+    public InfoClient getInfoMall(){
+        return infoMall;
+    }
     /**
      *
      */
@@ -133,9 +137,9 @@ public class ConnectClass extends Application {
     public void SetBindForObj(InfoClient info,chooseGuestClass choosec,StartFrame st) throws SocketException, IOException, Exception{
         /*initia*/
             choose=choosec;
+            infoMall=info;
         /*UDP MESSAGE*/
             System.out.println(info.getPort());
-            IPSelf=info.getIP();
             //vFileTranferByTCP = new FileTranferByTCP();
             socketudp=new DatagramSocket(info.getPort());
             udp_progress= new MultiThread();

@@ -41,9 +41,8 @@ public class SetupAlgorithm {
         return PrivateKeyFile;
     }
     public SetupAlgorithm(String nameAlgorithm,File publickey,File privatekey,String hashfunction) throws IOException{
-       /* ToolFile vToolFile = new ToolFile();
+        ToolFile vToolFile = new ToolFile();
         vToolFile.copyFile(publickey.getPath(), publickey.getName());
-       
         File publicnew = new File(publickey.getName());
         File privatenew = null;
          if (nameAlgorithm.equals("RSA")){ 
@@ -51,10 +50,9 @@ public class SetupAlgorithm {
              vToolFile.copyFile(privatekey.getPath(), privatekey.getName());
              this.Privatekey=privatenew;
          }     
-        vprogressAlgorithm = new ProgressAlgorithm(nameAlgorithm,publicnew,privatenew,hashfunction);*/
-        this.Publickey=new File("KeyDES.txt");
-        this.HashFunction="MD5";
-        this.NameAlgorithm="DES";
+        this.Publickey=publicnew;
+        this.HashFunction=hashfunction;
+        this.NameAlgorithm=nameAlgorithm;
         vprogressAlgorithm = new ProgressAlgorithm(this.NameAlgorithm,this.Publickey,this.Privatekey,this.HashFunction);
     }
 }
