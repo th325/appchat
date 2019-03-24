@@ -91,16 +91,16 @@ public class JavaApplication2 {
                             String FileSize=start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[1];
                             start.getChoose().cnn.progressFile().setMsgNameFile();
                             if(chatMain.getAlgorithm()!=null){
-                              
+                                while(Integer.parseInt(FileSize)!=(int)new File("receive\\"+FileName).length()){
+                                    /*loop*/
+                                    System.out.println("waiting Prepare decrypt"+Integer.parseInt(FileSize)+" "+(int)new File("receive\\"+FileName).length());
+                                }
                                 System.out.print("Decrypt..."+FileName);
                                 String pathfile = chatMain.getAlgorithm().getAlgorithmInfo().vprogressAlgorithm.DecryptAlgorithmForFile(new File("receive\\"+FileName));
                                 if(vHashing.checkHash(chatMain.getAlgorithm().getAlgorithmInfo().getHashFunction(),pathfile , HashValue)){
                                     System.out.println("Hash value is the same");
                                 }else{
-                                    System.out.print("HASHING");
-                                    System.out.println(vHashing.getValueHash("MD5",pathfile));
-                                    System.out.println(HashValue);
-                                    System.out.print("HASHED");
+                                    System.out.println("Hash value is not  the same");
                                 }
                             }
                             
@@ -108,7 +108,7 @@ public class JavaApplication2 {
                     }catch(Exception e){
                         Logger.getLogger(JavaApplication2.class.getName()).log(Level.SEVERE, null, e);
                     }
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);//1
                 }
              }
         }

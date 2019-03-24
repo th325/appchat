@@ -25,6 +25,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -837,11 +838,15 @@ public class ChatFrame extends javax.swing.JFrame {
         /*addUser("a");
         addUser("b");*/
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        final CloseAction closeAction = new CloseAction(this);
+        final CloseAction closeAction = new CloseAction(this,start);
         this.addWindowListener(new WindowAdapter() {
            @Override
            public void windowClosing(WindowEvent e) {
-              closeAction.confirmClosing();
+               try {
+                   closeAction.confirmClosing();
+               } catch (IOException ex) {
+                   Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
         });
              
@@ -1079,9 +1084,9 @@ class MyMouseListener implements MouseListener {
 
 
 class CloseAction extends AbstractAction {
-    private JFrame mainFrame;
-   
-    public CloseAction(JFrame mainFrame) {
+    private final JFrame mainFrame;
+    private StartFrame start;
+    public CloseAction(JFrame mainFrame,StartFrame start) {
        super("Exit");
        putValue(MNEMONIC_KEY, KeyEvent.VK_X);
        this.mainFrame = mainFrame;
@@ -1089,15 +1094,21 @@ class CloseAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        confirmClosing();
+        try {
+            confirmClosing();
+        } catch (IOException ex) {
+            Logger.getLogger(CloseAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void confirmClosing() {
+    public void confirmClosing() throws IOException {
         int confirmed = JOptionPane.showConfirmDialog(mainFrame,
             "Are you sure you want to quit?", "Confirm quit",
             JOptionPane.YES_NO_OPTION);
         if (confirmed == JOptionPane.YES_OPTION) {
             // clean up code
+            String s=start.getChoose().cnn.IPSelf;
+            Socket socket = new Socket("127.0.0.1",7777);
             System.exit(0);
         }
    }

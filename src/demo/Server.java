@@ -49,16 +49,19 @@ public class Server {
                 try {
                     socket=serversocket.accept();
                     System.out.print(socket);
-                    objIn = new ObjectInputStream(socket.getInputStream());
-                    Iclient =(InfoClient) objIn.readObject();
-                    listSocket.add(socket);
-                    listObject.add(Iclient);
+                    int index=index=checkExis(socket.getLocalAddress().getHostAddress());
+                    if(index!=-1){
+                        listSocket.remove(index);
+                         listObject.remove(index);
+                    }else{
+                        objIn = new ObjectInputStream(socket.getInputStream());
+                        Iclient =(InfoClient) objIn.readObject();
+                        listSocket.add(socket);
+                        listObject.add(Iclient);
+                    }
                     FServer.UpdateFrame(listObject);
                     Thread.sleep(1000);
                     updateToAll();
-                   
-                    
-                    
                 } catch (IOException ex) {
                     Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -76,6 +79,14 @@ public class Server {
         }
         }
         
+    }
+    public int checkExis(String IP){
+        int i=0;
+        for(Socket sk:listSocket){
+            if(sk.getLocalAddress().getHostAddress().equals(IP))return i;
+            i++;
+        }
+        return -1;
     }
     public void updateToAll() throws IOException{
         for(Socket sk:listSocket){

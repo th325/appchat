@@ -48,7 +48,6 @@ public class ConnectClass extends Application {
     private MultiThread udp_progress=null;
     private ProgressForFile tcp_progress=null;
     private FrameChat fchat=null;
-    private FileTranfer filetranfer=null;
     
     private ProgressForFile prof=null;
     private Socket socket = null;
@@ -60,6 +59,7 @@ public class ConnectClass extends Application {
      *
      */
     public  FileTranferByTCP vFileTranferByTCP;
+    public String IPSelf="";
     public ProgressForFile progressFile(){
        return  tcp_progress;
     }
@@ -135,6 +135,7 @@ public class ConnectClass extends Application {
             choose=choosec;
         /*UDP MESSAGE*/
             System.out.println(info.getPort());
+            IPSelf=info.getIP();
             //vFileTranferByTCP = new FileTranferByTCP();
             socketudp=new DatagramSocket(info.getPort());
             udp_progress= new MultiThread();

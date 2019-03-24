@@ -66,7 +66,7 @@ public class  FileTranferByTCP{
                         sendSocket=new Socket(IPFTP,8787);
                         System.out.println("SOket to send "+IPFTP);
                         Setted=true;
-                     /*try{
+                    /* try{
 			receiveServer=new ServerSocket(8787);
                         Setted=true;
                         }catch(IOException e){
@@ -122,13 +122,15 @@ public class  FileTranferByTCP{
 
                                             }*/
                                             int i=0;
+                                            int k=0;
                                             while((byteread=is.read(buffer))!=-1){
                                                      System.out.println(mfile+" "+byteread+" "+i);
                                                      i+=1;
                                                      bos.write(buffer, 0, byteread);
                                                      
                                                      bos.flush();
-                                                     if(byteread!=1024)break;
+                                                     k+=byteread;
+                                                     if(k>=numarray)break;
                                                     }
                                            
                                             System.out.print(numarray);
@@ -166,7 +168,7 @@ public class  FileTranferByTCP{
                         }
                           /*Hashing */
                         System.out.print("send name file");
-			don.writeUTF(selectfile.getName()+"tokenvalue87b19b5ad4fbd7"+numarray+"tokenvalue87b19b5ad4fbd7"+vHash);
+			don.writeUTF(selectfile.getName()+"tokenvalue87b19b5ad4fbd7"+filesize+"tokenvalue87b19b5ad4fbd7"+vHash);
 			System.out.println("sent "+selectfile.getName());
 			OutputStream os = sendSocket.getOutputStream();
 			int current = 0;

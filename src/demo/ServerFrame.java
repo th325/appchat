@@ -106,7 +106,7 @@ public class ServerFrame extends javax.swing.JFrame {
             public void run() {
                 sf=new ServerFrame();
                 sf.setVisible(true);
-                sf.AreaText.setText("321");
+                sf.AreaText.setText("waiting");
                 try {
                     sf.Init();
                 } catch (IOException ex) {
@@ -140,7 +140,7 @@ public class ServerFrame extends javax.swing.JFrame {
         System.out.print(this.getName());
         for(InfoClient element :listInfo){
             String line=element.getName()+element.getIP()+String.valueOf(element.getPort());
-            this.AreaText.setText(line+"\n");
+            this.AreaText.setText(AreaText.getText().trim()+"\n"+line);
             Thread.sleep(2000);
             System.out.print(line);
         }
