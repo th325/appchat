@@ -19,8 +19,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.DatagramSocket;
 import java.net.Socket;
@@ -29,8 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import static javax.swing.Action.MNEMONIC_KEY;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -701,8 +707,8 @@ public class ChatFrame extends javax.swing.JFrame {
                 addUserMsg(true, fc.getSelectedFile().getName(), true);
                 /*Encrypt*/
                 file_ecrypt=fc.getSelectedFile();
-                toolfile.AppendByte(file_ecrypt,1024);
-                file_ecrypt=new File(file_ecrypt.getPath());
+                //toolfile.AppendByte(file_ecrypt,1024);
+                //file_ecrypt=new File(file_ecrypt.getPath());
                  start.getChoose().cnn.progressFile().setHASH(vHashing.getValueHash(AlgorithmInfo.getAlgorithmInfo().getHashFunction(), file_ecrypt.getPath()));
                 if (AlgorithmInfo!=null){
                     file_ecrypt=AlgorithmInfo.getAlgorithmInfo().vprogressAlgorithm.EncryptAlgorithmForFile(fc.getSelectedFile());
@@ -830,6 +836,14 @@ public class ChatFrame extends javax.swing.JFrame {
         
         /*addUser("a");
         addUser("b");*/
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        final CloseAction closeAction = new CloseAction(this);
+        this.addWindowListener(new WindowAdapter() {
+           @Override
+           public void windowClosing(WindowEvent e) {
+              closeAction.confirmClosing();
+           }
+        });
              
     }
 
@@ -1060,4 +1074,31 @@ class MyMouseListener implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
+}
+
+
+
+class CloseAction extends AbstractAction {
+    private JFrame mainFrame;
+   
+    public CloseAction(JFrame mainFrame) {
+       super("Exit");
+       putValue(MNEMONIC_KEY, KeyEvent.VK_X);
+       this.mainFrame = mainFrame;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        confirmClosing();
+    }
+
+    public void confirmClosing() {
+        int confirmed = JOptionPane.showConfirmDialog(mainFrame,
+            "Are you sure you want to quit?", "Confirm quit",
+            JOptionPane.YES_NO_OPTION);
+        if (confirmed == JOptionPane.YES_OPTION) {
+            // clean up code
+            System.exit(0);
+        }
+   }
 }

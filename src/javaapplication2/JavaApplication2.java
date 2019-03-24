@@ -91,9 +91,7 @@ public class JavaApplication2 {
                             String FileSize=start.getChoose().cnn.progressFile().getMsgNameFile().split("tokenvalue87b19b5ad4fbd7")[1];
                             start.getChoose().cnn.progressFile().setMsgNameFile();
                             if(chatMain.getAlgorithm()!=null){
-                                while(Integer.parseInt(FileSize)!=(int)new File("receive\\"+FileName).length()/size){
-                                    /*loop*/
-                                }
+                              
                                 System.out.print("Decrypt..."+FileName);
                                 String pathfile = chatMain.getAlgorithm().getAlgorithmInfo().vprogressAlgorithm.DecryptAlgorithmForFile(new File("receive\\"+FileName));
                                 if(vHashing.checkHash(chatMain.getAlgorithm().getAlgorithmInfo().getHashFunction(),pathfile , HashValue)){

@@ -19,6 +19,8 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -64,6 +66,22 @@ public class  FileTranferByTCP{
                         sendSocket=new Socket(IPFTP,8787);
                         System.out.println("SOket to send "+IPFTP);
                         Setted=true;
+                     /*try{
+			receiveServer=new ServerSocket(8787);
+                        Setted=true;
+                        }catch(IOException e){
+                            System.out.print("ignore Port");
+                        }
+                        if (Setted==false){ 
+                            while(true){
+                                try{
+                                   sendSocket=new Socket("127.0.0.1",8787);
+                                   break;
+                                }catch(Exception e){
+                                    System.out.println("reconecting...");
+                                }
+                            }
+                        }*/
 		}
 		public void start()throws Exception {
 			
@@ -73,15 +91,20 @@ public class  FileTranferByTCP{
 		
 		public void run(){
 			try {
+                                /*if(Setted){
+                                    receiveSocket=receiveServer.accept();
+                                }else{
+                                    receiveSocket=sendSocket;
+                                }*/
                                 receiveSocket=receiveServer.accept();
 				while(true) {
 					din = new DataInputStream(receiveSocket.getInputStream());
-                                        while(true){
+                                        /*while(true){
                                             System.out.println("new file ");
                                             if (MsgNameFile.equals("")){
                                                 break;
                                             }
-                                        }
+                                        }*/
                                             String mfile = din.readUTF();
                                             MsgNameFile=mfile;
                                             System.out.println(mfile);
@@ -93,12 +116,21 @@ public class  FileTranferByTCP{
                                             byte[] buffer = new byte[size];
                                             int byteread=0;
                                             int numarray=Integer.parseInt(mfile.split("tokenvalue87b19b5ad4fbd7")[1]);
-                                            for(int i=0;i<numarray;i++) {
+                                           /* for(int i=0;i<numarray;i++) {
                                                     System.out.println(mfile+" "+byteread+" "+i*size);
                                                     bos.write(buffer,0,is.read(buffer,0,size));
 
-                                            }
-                                            bos.flush();
+                                            }*/
+                                            int i=0;
+                                            while((byteread=is.read(buffer))!=-1){
+                                                     System.out.println(mfile+" "+byteread+" "+i);
+                                                     i+=1;
+                                                     bos.write(buffer, 0, byteread);
+                                                     
+                                                     bos.flush();
+                                                     if(byteread!=1024)break;
+                                                    }
+                                           
                                             System.out.print(numarray);
                                             /*while((byteread=is.read(buffer,0,10240))==10240){
                                                     System.out.println(mfile+" "+byteread+" "+i);
@@ -143,6 +175,7 @@ public class  FileTranferByTCP{
 				if(filesize-current>=size) {
 					current+=size;
 				}else {
+                                        size=filesize-current;
 					filesize=current;
 				}
 				byte[] buffer = new byte[size];
@@ -155,7 +188,7 @@ public class  FileTranferByTCP{
                         
 			System.out.println("Send 100%");
 			}catch(Exception e) {
-				System.out.println("Loi gui file, chi tiet:"+e);
+				Logger.getLogger(FileTranferByTCP.class.getName()).log(Level.SEVERE, null, e);
 			}
             }
 	};
